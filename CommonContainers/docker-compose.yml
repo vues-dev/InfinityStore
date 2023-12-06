@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+
+# common
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "pgadmin@example.com"  # Change this to your desired pgAdmin login email
+      PGADMIN_DEFAULT_PASSWORD: "password"  # Change this to your desired pgAdmin login password
+    ports:
+      - "5050:80"  # pgAdmin will be accessible on port 5050 of the host machine
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  postgres:
+    image: postgres:latest
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+        - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  pgadmin_data:  
+  postgres_data:
