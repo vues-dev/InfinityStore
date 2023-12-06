@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "infinitystoreadmin.api": "StartDebugging"
+        "infinitystoreadmin.api": "StartDebugging",
+        "infinitystoreadmin.blazorapp": "StartDebugging"
       }
     }
   }
