@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  infinitystoreadmin.api:
+    ports:
+        - "5001:8081"
+    image: ${DOCKER_REGISTRY-}infinitystoreadminapi
+    build:
+      context: .
+      dockerfile: InfinityStoreAdmin.Api/Dockerfile
+    networks:
+      - common-net
+
+
+  infinity_store_admin_db:
+    image: postgres:latest
+    ports: 
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: infinity_store_admin_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+        - infinity_store_admin_data:/var/lib/postgresql/data/
+    networks:
+    - common-net
+
+networks:
+  common-net:
+    external: true
+
+volumes:
+  infinity_store_admin_data:
