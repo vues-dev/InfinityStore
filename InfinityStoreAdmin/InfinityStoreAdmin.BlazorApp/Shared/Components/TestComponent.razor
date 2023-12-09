@@ -1,0 +1,16 @@
+﻿<h2>Количество пользователей: @Count</h2>
+<ul>
+    @foreach (var user in Users)
+    {
+        <li>@user</li>
+    }
+</ul>
+
+@code {
+
+    [Parameter]
+    public List<string> Users { get; set; } = new();
+
+    [Parameter]
+    public int Count { get; set; }
+}

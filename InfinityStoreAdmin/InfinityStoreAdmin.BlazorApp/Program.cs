@@ -1,4 +1,4 @@
-using InfinityStoreAdmin.BlazorApp.Components;
+using InfinityStoreAdmin.BlazorApp.Services;
 
 namespace InfinityStoreAdmin.BlazorApp
 {
@@ -9,8 +9,9 @@ namespace InfinityStoreAdmin.BlazorApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorComponents()
-                .AddInteractiveServerComponents();
+            builder.Services.AddRazorPages();
+            builder.Services.AddServerSideBlazor();
+            builder.Services.AddSingleton<GameService>();
 
             var app = builder.Build();
 
@@ -25,10 +26,11 @@ namespace InfinityStoreAdmin.BlazorApp
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
-            app.UseAntiforgery();
 
-            app.MapRazorComponents<App>()
-                .AddInteractiveServerRenderMode();
+            app.UseRouting();
+
+            app.MapBlazorHub();
+            app.MapFallbackToPage("/_Host");
 
             app.Run();
         }
