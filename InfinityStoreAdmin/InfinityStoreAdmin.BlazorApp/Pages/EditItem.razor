@@ -1,0 +1,118 @@
+﻿@page "/edit-item/{ItemId:guid}"
+@using InfinityStoreAdmin.BlazorApp.Services
+@using InfinityStoreAdmin.BlazorApp.Services.Models
+@using InfinityStoreAdmin.BlazorApp.Shared.Utilities
+@inject GameService GameService
+@inject IFileUploadService FileUploadService
+@inject NavigationManager NavigationManager
+
+@if (!String.IsNullOrEmpty(ErrorMessage))
+{
+    <p>@ErrorMessage</p>
+}
+else
+{
+    <EditForm Model="@_game" class="p-4" OnValidSubmit="HandleFormSubmit">
+        <!-- Title field -->
+        <div class="row form-group mb-5">
+            <!-- Increased margin-bottom to mb-4 -->
+            <label for="title" class="col-md-2 col-form-label">Title:</label>
+            <div class="col-md-10">
+                <InputText id="title" class="form-control" @bind-Value="_game.Title" />
+            </div>
+        </div>
+
+        <!-- Description field -->
+        <div class="row form-group mb-5">
+            <!-- Increased margin-bottom to mb-4 -->
+            <label for="description" class="col-md-2 col-form-label">Description:</label>
+            <div class="col-md-10">
+                <InputTextArea id="description" class="form-control" @bind-Value="_game.Description" />
+            </div>
+        </div>
+
+        <!-- Price field -->
+        <div class="row form-group mb-5">
+            <!-- Increased margin-bottom to mb-4 -->
+            <label for="price" class="col-md-2 col-form-label">Price:</label>
+            <div class="col-md-10">
+                <InputText id="price" class="form-control" @bind-Value="_game.Price" />
+            </div>
+        </div>
+
+        <!-- ImageUrl upload and display row -->
+        <div class="row form-group mb-5">
+            <!-- Increased margin-bottom to mb-4 -->
+            <div class="col-md-2 text-center">
+                @if (!string.IsNullOrEmpty(_game.ImageUrl))
+                {
+                    <img src="@_game.ImageUrl" alt="Game ImageUrl" style="max-width: 100%; max-height: 200px; width: auto; height: auto;" />
+                }
+            </div>
+            <div class="col-md-10 d-flex justify-content-center align-items-center">
+                <InputFile id="imageUpload" OnChange="@HandleFileUpload" />
+            </div>
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group d-flex justify-content-end mt-3">
+            <button type="submit" class="btn btn-info mr-3">Update Game</button> <!-- btn-success for green color -->
+        </div>
+    </EditForm>
+
+
+}
+
+
+
+
+@code {
+    [Parameter]
+    public Guid ItemId { get; set; }
+
+    private GameModel? _game;
+    private int _maxFileSize = 1 * 1024 * 1024;
+    private string[] allowedExtenstions = { ".png", ".jpg", ".jpeg", ".gif" };
+
+    private string ErrorMessage = String.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _game = await GameService.GetGameByIdAsync(ItemId);
+
+        if (_game == null)
+        {
+            ErrorMessage = $"Item with id {ItemId} was not found.";
+        }
+    }
+
+    private async Task HandleFileUpload(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+
+        var result = await FileUploadService.UploadFileAsync(imageFile, _maxFileSize, allowedExtenstions);
+
+        if (result.StatusCode == 0)
+        {
+            ErrorMessage = result.StatusMessage;
+            return;
+        }
+
+        _game.ImageUrl = result.ImageUrl;
+
+        Console.WriteLine($"image url: {_game.ImageUrl}");
+
+        StateHasChanged();
+    }
+
+
+    private async Task HandleFormSubmit()
+    {
+        await GameService.UpdateGameAsync(_game);
+
+        NavigationManager.NavigateTo("/");
+    }
+
+}

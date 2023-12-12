@@ -1,4 +1,5 @@
 using InfinityStoreAdmin.BlazorApp.Services;
+using InfinityStoreAdmin.BlazorApp.Shared.Utilities;
 
 namespace InfinityStoreAdmin.BlazorApp
 {
@@ -11,7 +12,10 @@ namespace InfinityStoreAdmin.BlazorApp
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+
+            //todo: move to separate extension
             builder.Services.AddSingleton<GameService>();
+            builder.Services.AddSingleton<IFileUploadService, FileUploadService>();
 
             var app = builder.Build();
 

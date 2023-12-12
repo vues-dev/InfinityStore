@@ -1,28 +1,11 @@
-﻿using InfinityStoreAdmin.BlazorApp.Services.Models;
+﻿using InfinityStoreAdmin.BlazorApp.Data;
+using InfinityStoreAdmin.BlazorApp.Services.Models;
+using System.Globalization;
 
 namespace InfinityStoreAdmin.BlazorApp.Services
 {
     public class GameService
     {
-        private List<GameEntity> _games = new();
-
-        public GameService()
-        {
-            var random = new Random();
-
-            for (int i = 1; i < 21; i++)
-            {
-                _games.Add(new GameEntity
-                {
-                    Id = Guid.NewGuid(),
-                    Title = GenerateRandomString(),
-                    Description = $"Description {i}",
-                    Price = random.Next(3, 10),
-                    Image = $"https://picsum.photos/seed/{i}/200/300"
-                });
-            }
-        }
-
         public async Task<GetGamesResponse> GetGamesAsync(GetGamesRequest request)
         {
             GetGamesResponse result = new();
@@ -32,7 +15,7 @@ namespace InfinityStoreAdmin.BlazorApp.Services
             // filtering
 
             var gamesProcessed =
-                _games.Where(x => string.IsNullOrEmpty(request.SearchString) || x.Title.ToLower().Contains(request.SearchString.ToLower()));
+                GameData.Games.Where(x => string.IsNullOrEmpty(request.SearchString) || x.Title.ToLower().Contains(request.SearchString.ToLower()));
 
             //sorting
 
@@ -61,8 +44,8 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                Price = x.Price.ToString("C"),
-                Image = x.Image
+                Price = x.Price.ToString("C", CultureInfo.CreateSpecificCulture("en-US")),
+                ImageUrl = x.Image
             }).ToList();
 
             return result;
@@ -72,22 +55,60 @@ namespace InfinityStoreAdmin.BlazorApp.Services
         {
             await Task.Delay(100);
 
-            var game = _games.FirstOrDefault(x => x.Id == id);
+            var game = GameData.Games.FirstOrDefault(x => x.Id == id);
 
             if (game != null)
             {
-                _games.Remove(game);
+                GameData.Games.Remove(game);
             }
         }
 
-        private string GenerateRandomString()
+        public Task<GameModel> GetGameByIdAsync(Guid itemId)
         {
-            Random rand = new Random();
-            int length = rand.Next(5, 11); // Random length between 5 and 10
+            var game = GameData.Games.FirstOrDefault(x => x.Id == itemId);
 
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[rand.Next(s.Length)]).ToArray());
+            if (game == null)
+                return Task.FromResult<GameModel>(null);
+
+            return Task.FromResult(new GameModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Description = game.Description,
+                Price = PriceToString(game.Price),
+                ImageUrl = game.Image
+            });
+        }
+
+        //update
+        public async Task UpdateGameAsync(GameModel request)
+        {
+            await Task.Delay(100);
+            var gameToUpdate = GameData.Games.FirstOrDefault(x => x.Id == request.Id);
+            if (gameToUpdate == null)
+                throw new Exception("Game not found");
+            gameToUpdate.Title = request.Title;
+            gameToUpdate.Description = request.Description;
+            var price = PriceToDecimal(request.Price);
+            gameToUpdate.Price = price;
+            gameToUpdate.Image = request.ImageUrl;
+        }
+
+        private string PriceToString(decimal price)
+        {
+            return price.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
+        }
+
+        private decimal PriceToDecimal(string price)
+        {
+            var priceString = price.Replace("$", string.Empty);
+
+            if (decimal.TryParse(priceString, NumberStyles.Currency, CultureInfo.CreateSpecificCulture("en-US"), out var result))
+            {
+                return result;
+            }
+
+            return 0;
         }
     }
 }
