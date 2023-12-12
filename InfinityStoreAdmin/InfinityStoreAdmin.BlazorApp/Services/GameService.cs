@@ -44,7 +44,7 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Id = x.Id,
                 Title = x.Title,
                 Description = x.Description,
-                Price = x.Price.ToString("C", CultureInfo.CreateSpecificCulture("en-US")),
+                Price = x.Price,
                 ImageUrl = x.Image
             }).ToList();
 
@@ -75,12 +75,11 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Id = game.Id,
                 Title = game.Title,
                 Description = game.Description,
-                Price = PriceToString(game.Price),
+                Price = game.Price,
                 ImageUrl = game.Image
             });
         }
 
-        //update
         public async Task UpdateGameAsync(GameModel request)
         {
             await Task.Delay(100);
@@ -89,17 +88,31 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 throw new Exception("Game not found");
             gameToUpdate.Title = request.Title;
             gameToUpdate.Description = request.Description;
-            var price = PriceToDecimal(request.Price);
+            var price = request.Price;
             gameToUpdate.Price = price;
             gameToUpdate.Image = request.ImageUrl;
         }
 
-        private string PriceToString(decimal price)
+        public async Task CreateGameAsync(GameModel request)
+        {
+            await Task.Delay(100);
+            var game = new GameEntity
+            {
+                Id = Guid.NewGuid(),
+                Title = request.Title,
+                Description = request.Description,
+                Price = request.Price,
+                Image = request.ImageUrl
+            };
+            GameData.Games.Add(game);
+        }
+
+        public string PriceToString(decimal price)
         {
             return price.ToString("C", CultureInfo.CreateSpecificCulture("en-US"));
         }
 
-        private decimal PriceToDecimal(string price)
+        public decimal PriceToDecimal(string price)
         {
             var priceString = price.Replace("$", string.Empty);
 

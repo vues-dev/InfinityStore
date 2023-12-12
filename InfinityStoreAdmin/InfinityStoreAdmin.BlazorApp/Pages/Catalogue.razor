@@ -1,0 +1,232 @@
+﻿@page "/catalogue/{CurrentPage:int}"
+@using InfinityStoreAdmin.BlazorApp.Services
+@using InfinityStoreAdmin.BlazorApp.Services.Models
+@using InfinityStoreAdmin.BlazorApp.Shared.Components
+@inject NavigationManager NavigationManager
+
+<div class="row">
+    <div class="col-10 text-center">
+        <RadzenTextBox Placeholder="Search..." Change=@(args => OnSearchChange(args)) class="w-50 mb-3" aria-label="TextBox with placeholder" />
+    </div>
+    <div class="col-2 text-right">
+        <button type="button" class="btn btn-info" @onclick="AddGame">Add</button>
+    </div>
+
+</div>
+
+<div class="tableFixHead">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">
+                    Title
+                    <button type="button" class="btn btn-light" @onclick="SortTitle">
+
+                        @if (request.IsTitleUp == null)
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.776 10.447a.5.5 0 0 0 .448 0l6-3a.5.5 0 1 0-.448-.894L8 9.44 2.224 6.553a.5.5 0 1 0-.448.894l6 3z"></path>
+                            </svg>
+                        }
+                        else
+                        {
+                            @if ((bool)request.IsTitleUp)
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894l6-3z"></path>
+                                </svg>
+                            }
+                            else
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M7.776 10.447a.5.5 0 0 0 .448 0l6-3a.5.5 0 1 0-.448-.894L8 9.44 2.224 6.553a.5.5 0 1 0-.448.894l6 3z"></path>
+                                </svg>
+                            }
+                        }
+
+                    </button>
+                </th>
+                <th scope="col">Description</th>
+                <th scope="col">
+                    Price
+                    <button type="button" class="btn btn-light" @onclick="SortPrice">
+
+                        @if (request.IsPriceUp == null)
+                        {
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M7.776 10.447a.5.5 0 0 0 .448 0l6-3a.5.5 0 1 0-.448-.894L8 9.44 2.224 6.553a.5.5 0 1 0-.448.894l6 3z"></path>
+                            </svg>
+                        }
+                        else
+                        {
+                            @if ((bool)request.IsPriceUp)
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-up" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894l6-3z"></path>
+                                </svg>
+                            }
+                            else
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M7.776 10.447a.5.5 0 0 0 .448 0l6-3a.5.5 0 1 0-.448-.894L8 9.44 2.224 6.553a.5.5 0 1 0-.448.894l6 3z"></path>
+                                </svg>
+                            }
+                        }
+
+                    </button>
+                </th>
+                <th scope="col" class="w-auto"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in games)
+            {
+                var gameId = game.Id;
+                var gameTitle = game.Title;
+
+                <tr>
+                    <td style="height: 100px;">
+                        <img src="@game.ImageUrl" alt="@game.Title" style="max-width: 100px; max-height:100px; width: auto; height: auto;">
+                    </td>
+                    <td>@game.Title</td>
+                    <td>@game.Description</td>
+                    <td>@game.Price</td>
+                    <td class="deleteButtonTd">
+                        <button type="button" class="btn btn-info" @onclick="() => EditGame(gameId)">edit</button>
+                        <button type="button" class="btn btn-light" @onclick="() => DeleteGame(gameId, gameTitle)">X</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="row mt-3">
+    <div class="col">
+        <Pagination TotalItemCount="totalItems" ItemsPerPage="request.ItemsPerPage" CurrentPage="request.CurrentPage" OnPageChanged="HandlePageChanged" />
+    </div>
+    <div class="col text-end">
+        <p>Total items: @totalItems</p>
+    </div>
+</div>
+
+<style>
+    .tableFixHead {
+        display: flex;
+        overflow: auto;
+        height: 65vh;
+    }
+
+        .tableFixHead thead th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: white;
+        }
+
+    .deleteButtonTd {
+        text-align: center;
+    }
+
+</style>
+
+@code {
+    [Parameter]
+    public int CurrentPage { get; set; }
+
+    GameService _gameService = new();
+
+    IEnumerable<GameModel> games = new List<GameModel>();
+    GetGamesRequest request = new();
+    GetGamesResponse response = new();
+
+    private int totalItems;
+    private string searchString = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        request = new GetGamesRequest
+            {
+                IsTitleUp = null,
+                IsPriceUp = null,
+                SearchString = searchString,
+                CurrentPage = CurrentPage,
+                ItemsPerPage = 4
+            };
+
+        await UpdateState(request);
+    }
+
+    private async void HandlePageChanged(int page)
+    {
+        request.CurrentPage = page;
+
+        await UpdateState(request);
+
+        NavigationManager.NavigateTo($"/catalogue/{page}");
+    }
+
+
+    private async Task DeleteGame(Guid gameId, string gameTitle)
+    {
+        await _gameService.DeleteGameById(gameId);
+
+        await UpdateState(request);
+    }
+
+    private async Task UpdateState(GetGamesRequest request)
+    {
+        response = await _gameService.GetGamesAsync(request);
+        games = response.Games;
+
+        totalItems = response.TotalGames;
+
+        StateHasChanged();
+    }
+
+    private async void SortPrice()
+    {
+        if (request.IsPriceUp == null)
+        {
+            request.IsPriceUp = false;
+            request.IsTitleUp = null;
+        };
+
+        request.IsPriceUp = !request.IsPriceUp;
+        await UpdateState(request);
+    }
+
+    private async void SortTitle()
+    {
+        if (request.IsTitleUp == null)
+        {
+            request.IsTitleUp = false;
+            request.IsPriceUp = null;
+        };
+
+        request.IsTitleUp = !request.IsTitleUp;
+        await UpdateState(request);
+    }
+
+    private async Task OnSearchChange(string searchStr)
+    {
+        request.CurrentPage = 1;
+        request.SearchString = searchStr;
+        await UpdateState(request);
+    }
+
+    private void EditGame(Guid gameId)
+    {
+        NavigationManager.NavigateTo($"edit-item/{gameId}/{request.CurrentPage}");
+    }
+
+    private void AddGame()
+    {
+        NavigationManager.NavigateTo($"add-item");
+    }
+
+}

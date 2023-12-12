@@ -1,4 +1,4 @@
-﻿@page "/edit-item/{ItemId:guid}"
+﻿@page "/edit-item/{ItemId:guid}/{CurrentPage:int}"
 @using InfinityStoreAdmin.BlazorApp.Services
 @using InfinityStoreAdmin.BlazorApp.Services.Models
 @using InfinityStoreAdmin.BlazorApp.Shared.Utilities
@@ -13,12 +13,17 @@
 else
 {
     <EditForm Model="@_game" class="p-4" OnValidSubmit="HandleFormSubmit">
+        
+        <div class="form-group d-flex justify-content-start mb-5">
+            <button type="button" class="btn btn-secondary" @onclick="BackToList">Back to list</button> <!-- btn-success for green color -->
+        </div> 
+
         <!-- Title field -->
         <div class="row form-group mb-5">
             <!-- Increased margin-bottom to mb-4 -->
             <label for="title" class="col-md-2 col-form-label">Title:</label>
             <div class="col-md-10">
-                <InputText id="title" class="form-control" @bind-Value="_game.Title" />
+                <InputText id="title" class="form-control" @bind-Value="_game.Title"/>
             </div>
         </div>
 
@@ -27,7 +32,7 @@ else
             <!-- Increased margin-bottom to mb-4 -->
             <label for="description" class="col-md-2 col-form-label">Description:</label>
             <div class="col-md-10">
-                <InputTextArea id="description" class="form-control" @bind-Value="_game.Description" />
+                <InputTextArea id="description" class="form-control" @bind-Value="_game.Description"/>
             </div>
         </div>
 
@@ -36,7 +41,7 @@ else
             <!-- Increased margin-bottom to mb-4 -->
             <label for="price" class="col-md-2 col-form-label">Price:</label>
             <div class="col-md-10">
-                <InputText id="price" class="form-control" @bind-Value="_game.Price" />
+                <InputNumber id="price" class="form-control" @bind-Value="_game.Price"/>
             </div>
         </div>
 
@@ -46,11 +51,11 @@ else
             <div class="col-md-2 text-center">
                 @if (!string.IsNullOrEmpty(_game.ImageUrl))
                 {
-                    <img src="@_game.ImageUrl" alt="Game ImageUrl" style="max-width: 100%; max-height: 200px; width: auto; height: auto;" />
+                    <img src="@_game.ImageUrl" alt="Game ImageUrl" style="max-width: 100%; max-height: 200px; width: auto; height: auto;"/>
                 }
             </div>
             <div class="col-md-10 d-flex justify-content-center align-items-center">
-                <InputFile id="imageUpload" OnChange="@HandleFileUpload" />
+                <InputFile id="imageUpload" OnChange="@HandleFileUpload"/>
             </div>
         </div>
 
@@ -69,6 +74,9 @@ else
 @code {
     [Parameter]
     public Guid ItemId { get; set; }
+
+    [Parameter]
+    public int CurrentPage { get; set; }
 
     private GameModel? _game;
     private int _maxFileSize = 1 * 1024 * 1024;
@@ -102,8 +110,6 @@ else
 
         _game.ImageUrl = result.ImageUrl;
 
-        Console.WriteLine($"image url: {_game.ImageUrl}");
-
         StateHasChanged();
     }
 
@@ -112,7 +118,12 @@ else
     {
         await GameService.UpdateGameAsync(_game);
 
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo($"/catalogue/{CurrentPage}");
+    }
+
+    private void BackToList()
+    {
+        NavigationManager.NavigateTo($"/catalogue/{CurrentPage}");
     }
 
 }
