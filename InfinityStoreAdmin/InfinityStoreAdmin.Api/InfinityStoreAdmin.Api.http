@@ -1,4 +1,4 @@
-@InfinityStoreAdmin.Api_HostAddress = http://localhost:5142
+@InfinityStoreAdmin.Api_HostAddress = http://localhost:5079
 
 GET {{InfinityStoreAdmin.Api_HostAddress}}/weatherforecast/
 Accept: application/json

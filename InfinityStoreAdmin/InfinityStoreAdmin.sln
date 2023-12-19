@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityStoreAdmin.Api", "InfinityStoreAdmin.Api\InfinityStoreAdmin.Api.csproj", "{2DC93CC8-08A0-4AA9-AC6E-BC0D0CFACF13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityStoreAdmin.Api", "InfinityStoreAdmin.Api\InfinityStoreAdmin.Api.csproj", "{0EC8B333-D7B6-4DD2-AE2D-789CD6F5A8DE}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E4D3AAB9-70E5-4C8E-9B23-F000E50FBA23}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityStoreAdmin.BlazorApp", "InfinityStoreAdmin.BlazorApp\InfinityStoreAdmin.BlazorApp.csproj", "{A0D870DD-075E-45D6-9081-7FE2410DAFC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinityStoreAdmin.BlazorApp", "InfinityStoreAdmin.BlazorApp\InfinityStoreAdmin.BlazorApp.csproj", "{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,23 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2DC93CC8-08A0-4AA9-AC6E-BC0D0CFACF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DC93CC8-08A0-4AA9-AC6E-BC0D0CFACF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DC93CC8-08A0-4AA9-AC6E-BC0D0CFACF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DC93CC8-08A0-4AA9-AC6E-BC0D0CFACF13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4D3AAB9-70E5-4C8E-9B23-F000E50FBA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4D3AAB9-70E5-4C8E-9B23-F000E50FBA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4D3AAB9-70E5-4C8E-9B23-F000E50FBA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4D3AAB9-70E5-4C8E-9B23-F000E50FBA23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A0D870DD-075E-45D6-9081-7FE2410DAFC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A0D870DD-075E-45D6-9081-7FE2410DAFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A0D870DD-075E-45D6-9081-7FE2410DAFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A0D870DD-075E-45D6-9081-7FE2410DAFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EC8B333-D7B6-4DD2-AE2D-789CD6F5A8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EC8B333-D7B6-4DD2-AE2D-789CD6F5A8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EC8B333-D7B6-4DD2-AE2D-789CD6F5A8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EC8B333-D7B6-4DD2-AE2D-789CD6F5A8DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AB8B782B-1634-4F93-ADC7-7B535CB379DA}
+		SolutionGuid = {F821764A-B423-43EA-BE34-93AA6686F68A}
 	EndGlobalSection
 EndGlobal

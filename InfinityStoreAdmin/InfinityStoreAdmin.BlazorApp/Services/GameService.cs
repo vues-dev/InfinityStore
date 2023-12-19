@@ -45,8 +45,10 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Title = x.Title,
                 Description = x.Description,
                 Price = x.Price,
-                ImageUrl = x.Image
+                ImagePath = x.Image
             }).ToList();
+
+
 
             return result;
         }
@@ -76,7 +78,7 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Title = game.Title,
                 Description = game.Description,
                 Price = game.Price,
-                ImageUrl = game.Image
+                ImagePath = game.Image
             });
         }
 
@@ -90,7 +92,7 @@ namespace InfinityStoreAdmin.BlazorApp.Services
             gameToUpdate.Description = request.Description;
             var price = request.Price;
             gameToUpdate.Price = price;
-            gameToUpdate.Image = request.ImageUrl;
+            gameToUpdate.Image = request.ImagePath;
         }
 
         public async Task CreateGameAsync(GameModel request)
@@ -102,7 +104,7 @@ namespace InfinityStoreAdmin.BlazorApp.Services
                 Title = request.Title,
                 Description = request.Description,
                 Price = request.Price,
-                Image = request.ImageUrl
+                Image = request.ImagePath
             };
             GameData.Games.Add(game);
         }

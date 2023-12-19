@@ -4,28 +4,19 @@ using MediatR;
 
 namespace InfinityStoreAdmin.Api.Features.AddGame;
 
-public class AddGameControllerHandler : IRequestHandler<AddGameCommand, Unit>
+public class AddGameControllerHandler(IGameRepository gameRepository) : IRequestHandler<AddGameCommand, Unit>
 {
-    private readonly IGameRepository _gameRepository;
-
-    public AddGameControllerHandler(IGameRepository gameRepository)
-    {
-        _gameRepository = gameRepository;
-    }
-
     public async Task<Unit> Handle(AddGameCommand request, CancellationToken cancellationToken)
     {
         var game = new Game
         {
             Title = request.Title,
             Description = request.Description,
-            ImageUrl = request.ImageUrl,
+            ImagePath = request.ImagePath,
             Price = request.Price
         };
 
-
-
-        await _gameRepository.AddAsync(game);
+        await gameRepository.AddAsync(game);
 
         return Unit.Value;
     }

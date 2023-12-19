@@ -1,7 +1,14 @@
 
+using FluentValidation;
+using InfinityStoreAdmin.Api.Features.AddGame;
+using InfinityStoreAdmin.Api.Shared.Behaviors;
 using InfinityStoreAdmin.Api.Shared.Configurations;
 using InfinityStoreAdmin.Api.Shared.Extensions;
 using InfinityStoreAdmin.Api.Shared.FrameworkCustomizing.OperationGroup;
+using InfinityStoreAdmin.Api.Shared.Middleware;
+using MediatR;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace InfinityStoreAdmin.Api
 {
@@ -22,24 +29,18 @@ namespace InfinityStoreAdmin.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            // register app dependencies
-            builder.Services.AddApplication();
-            builder.Services.RegisterServices();
-
-            // configure app settings
-            IConfigurationSetup appSettingSetup = new AppSettingsConfigurationSetup();
+            // configure app (settings, dependencies, etc)
+            IConfigurationSetup appSettingSetup = new AppConfigurationSetup();
             appSettingSetup.ConfigureAll(builder.Services, builder.Configuration);
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
-            app.UseHttpsRedirection();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

@@ -19,6 +19,6 @@ namespace InfinityStoreAdmin.BlazorApp.Services.Models
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = "Image is required")]
-        public string ImageUrl { get; set; }
+        public string ImagePath { get; set; }
     }
 }

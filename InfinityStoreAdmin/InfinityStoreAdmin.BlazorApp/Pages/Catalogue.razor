@@ -1,8 +1,12 @@
 ﻿@page "/catalogue/{CurrentPage:int}"
 @using InfinityStoreAdmin.BlazorApp.Services
+@using InfinityStoreAdmin.BlazorApp.Services.Interfaces
 @using InfinityStoreAdmin.BlazorApp.Services.Models
 @using InfinityStoreAdmin.BlazorApp.Shared.Components
+@using GetGamesRequest = InfinityStoreAdmin.BlazorApp.Services.Models.GetGamesRequest
+@using GetGamesResponse = InfinityStoreAdmin.BlazorApp.Services.Models.GetGamesResponse
 @inject NavigationManager NavigationManager
+@inject IAdminApiService AdminApiService
 
 <div class="row">
     <div class="col-10 text-center">
@@ -88,7 +92,7 @@
 
                 <tr>
                     <td style="height: 100px;">
-                        <img src="@game.ImageUrl" alt="@game.Title" style="max-width: 100px; max-height:100px; width: auto; height: auto;">
+                        <img src="@game.ImagePath" alt="@game.Title" style="max-width: 100px; max-height:100px; width: auto; height: auto;">
                     </td>
                     <td>@game.Title</td>
                     <td>@game.Description</td>
@@ -180,7 +184,8 @@
 
     private async Task UpdateState(GetGamesRequest request)
     {
-        response = await _gameService.GetGamesAsync(request);
+        // response = await _gameService.GetGamesAsync(request);
+        response = await AdminApiService.GetGamesAsync(request);
         games = response.Games;
 
         totalItems = response.TotalGames;
