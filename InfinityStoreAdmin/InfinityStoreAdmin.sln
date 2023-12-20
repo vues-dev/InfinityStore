@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InfinityStoreAdmin.Api", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinityStoreAdmin.BlazorApp", "InfinityStoreAdmin.BlazorApp\InfinityStoreAdmin.BlazorApp.csproj", "{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfinityStoreAdmin.Api.IntegrationTests", "InfinityStoreAdmin.Api.IntegrationTests\InfinityStoreAdmin.Api.IntegrationTests.csproj", "{02635010-D86D-4AD4-AA53-657D16E33EBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14A43ACA-D05D-4E67-8A0B-4BB4832C022E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02635010-D86D-4AD4-AA53-657D16E33EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02635010-D86D-4AD4-AA53-657D16E33EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02635010-D86D-4AD4-AA53-657D16E33EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02635010-D86D-4AD4-AA53-657D16E33EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

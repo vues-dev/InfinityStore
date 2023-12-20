@@ -44,3 +44,5 @@ app.MapControllers();
 app.RegisterEndpoints(new ApiPaths());
 
 app.Run();
+
+public partial class Program { }
