@@ -16,7 +16,7 @@ public class AddGameEndpoint : IGroupedEndpoint
     public void DefineEndpoint(RouteGroupBuilder app)
     {
         app.MapPost("/", HandleAsync)
-           .ValidateRequest<AddGameRequest>()
+           .ValidateRequest()
            .Produces<ValidationError>(StatusCodes.Status422UnprocessableEntity)
            .Produces<Guid>(StatusCodes.Status200OK)
            .WithOpenApi(op => new(op)

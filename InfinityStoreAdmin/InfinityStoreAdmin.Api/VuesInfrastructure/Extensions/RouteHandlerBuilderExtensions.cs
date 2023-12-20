@@ -5,9 +5,9 @@ namespace Vues.Net;
 
 public static class RouteHandlerBuilderExtensions
 {
-    public static RouteHandlerBuilder ValidateRequest<T>(this RouteHandlerBuilder handlerBuilder) where T : class
+    public static RouteHandlerBuilder ValidateRequest(this RouteHandlerBuilder handlerBuilder)
     {
-        return handlerBuilder.AddEndpointFilter<ValidationFilter<T>>();
+        return handlerBuilder.AddEndpointFilter<ValidationFilter>();
     }
 }
 

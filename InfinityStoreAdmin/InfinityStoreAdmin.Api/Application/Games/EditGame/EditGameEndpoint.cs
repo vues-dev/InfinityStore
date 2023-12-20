@@ -17,7 +17,7 @@ public class EditGameEndpoint : IGroupedEndpoint
     public void DefineEndpoint(RouteGroupBuilder app)
     {
         app.MapPut("/{gameId}", HandleAsync)
-           .ValidateRequest<EditGameRequest>()
+           .ValidateRequest()
            .Produces<ValidationError>(StatusCodes.Status422UnprocessableEntity)
            .Produces<string>(StatusCodes.Status404NotFound)
            .Produces<Guid>(StatusCodes.Status200OK)

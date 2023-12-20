@@ -30,6 +30,21 @@ namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games
             // Assert
             Assert.Equal(HttpStatusCode.UnprocessableEntity, result.StatusCode);
         }
+
+
+        //success
+        [Fact]
+        public async Task AddGame_CorrectData_ShouldReturn200()
+        {
+            // Arrange
+            var payload = new AddGameRequest(Title: "title", Description: "desk", ImagePath: "path", Price: 0);
+            using var client = _sut.CreateClient();
+            // Act
+            var result = await client.PostAsJsonAsync($"{ApiPaths.PATH_GAMES}", payload);
+            var content = await result.Content.ReadFromJsonAsync<Guid>();
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
     }
 }
 
