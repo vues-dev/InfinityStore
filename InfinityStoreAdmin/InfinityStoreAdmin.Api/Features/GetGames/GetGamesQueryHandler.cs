@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InfinityStoreAdmin.Api.Features.GetGames;
 
-public class GetGamesQueryHandler(IGameRepository gameRepository, ILogger<GetGamesQueryHandler> logger) : IRequestHandler<GetGamesQuery, GetGamesResponse>
+public class GetGamesQueryHandler(IGameRepository gameRepository, ILogger<GetGamesQueryHandler> logger) : IRequestHandler<GetGamesQuery, GetGamesResult>
 {
-    public async Task<GetGamesResponse> Handle(GetGamesQuery request, CancellationToken ct)
+    public async Task<GetGamesResult> Handle(GetGamesQuery request, CancellationToken ct)
     {
         var games = gameRepository.Query();
 
@@ -37,7 +37,7 @@ public class GetGamesQueryHandler(IGameRepository gameRepository, ILogger<GetGam
             .OrderBy(x=>x.Title)
             .ToListAsync(ct);
 
-        return new GetGamesResponse
+        return new GetGamesResult
         {
             Games = resultList,
             TotalGames = totalGames

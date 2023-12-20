@@ -1,6 +1,6 @@
-
 using FluentValidation;
 using InfinityStoreAdmin.Api.Features.AddGame;
+using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Behaviors;
 using InfinityStoreAdmin.Api.Shared.Configurations;
 using InfinityStoreAdmin.Api.Shared.Extensions;
@@ -9,45 +9,38 @@ using InfinityStoreAdmin.Api.Shared.Middleware;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Vues.Net;
 
-namespace InfinityStoreAdmin.Api
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    options.Conventions.Add(new OperationGroupConvention());
+});
 
-            // Add services to the container.
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-            builder.Services.AddControllers(options =>
-            {
-                options.Conventions.Add(new OperationGroupConvention());
-            });
+// configure app (settings, dependencies, etc)
+IConfigurationSetup appSettingSetup = new AppConfigurationSetup();
+appSettingSetup.ConfigureAll(builder.Services, builder.Configuration);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+var app = builder.Build();
 
-            // configure app (settings, dependencies, etc)
-            IConfigurationSetup appSettingSetup = new AppConfigurationSetup();
-            appSettingSetup.ConfigureAll(builder.Services, builder.Configuration);
+app.UseSwagger();
+app.UseSwaggerUI();
 
-            var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-            app.UseSwagger();
-            app.UseSwaggerUI();
+//app.UseHttpsRedirection();
 
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
-
-            //app.UseHttpsRedirection();
-
-            app.UseAuthorization();
+app.UseAuthorization();
 
 
-            app.MapControllers();
+app.MapControllers();
+app.RegisterEndpoints(new ApiPaths());
 
-            app.Run();
-        }
-    }
-}
+app.Run();

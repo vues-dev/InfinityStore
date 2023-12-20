@@ -2,7 +2,7 @@
 
 namespace InfinityStoreAdmin.Api.Features.GetGames;
 
-public class GetGamesResponse
+public class GetGamesResult
 {
     public List<Game> Games { get; set; } = new();
     public int TotalGames { get; set; }

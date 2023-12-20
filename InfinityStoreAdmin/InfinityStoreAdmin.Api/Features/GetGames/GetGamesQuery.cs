@@ -3,7 +3,7 @@ using MediatR;
 
 namespace InfinityStoreAdmin.Api.Features.GetGames
 {
-    public class GetGamesQuery : IRequest<GetGamesResponse>
+    public class GetGamesQuery : IRequest<GetGamesResult>
     {
         [DefaultValue("")]
         public string SearchString { get; set; }

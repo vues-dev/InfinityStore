@@ -9,6 +9,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 		<PackageReference Include="FluentValidation" Version="11.8.1" />
@@ -16,6 +18,31 @@
 		<PackageReference Include="MediatR" Version="12.2.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="VuesInfrastructure\" />
+	  <None Remove="VuesInfrastructure\Filters\" />
+	  <None Remove="VuesInfrastructure\Extensions\" />
+	  <None Remove="VuesInfrastructure\Endpoints\" />
+	  <None Remove="Application\" />
+	  <None Remove="Application\Games\" />
+	  <None Remove="Application\Games\AddGame\" />
+	  <None Remove="Application\Games\EditGame\" />
+	  <None Remove="Application\Games\GetGames\" />
+	  <None Remove="VuesInfrastructure\Models\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="VuesInfrastructure\" />
+	  <Folder Include="VuesInfrastructure\Filters\" />
+	  <Folder Include="VuesInfrastructure\Extensions\" />
+	  <Folder Include="VuesInfrastructure\Endpoints\" />
+	  <Folder Include="Application\" />
+	  <Folder Include="Application\Games\" />
+	  <Folder Include="Application\Games\AddGame\" />
+	  <Folder Include="Application\Games\EditGame\" />
+	  <Folder Include="Application\Games\GetGames\" />
+	  <Folder Include="VuesInfrastructure\Models\" />
+	</ItemGroup>
 </Project>

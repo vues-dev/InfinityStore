@@ -11,7 +11,7 @@ public class GetGamesController : ApiControllerBase
     [HttpPost("get-games")]
     [Consumes("application/json")]
     [Produces("application/json")]
-    public async Task<GetGamesResponse> GetGamesAsync(GetGamesQuery query)
+    public async Task<GetGamesResult> GetGamesAsync(GetGamesQuery query)
     {
        var result = await Mediator.Send(query);
 
