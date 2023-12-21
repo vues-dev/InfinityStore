@@ -9,15 +9,13 @@ public class ValidationFilter : IEndpointFilter
 {
     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
     {
-        dynamic validator = null;
-        dynamic argToValidate = null;
+        IValidator? validator = null;
+        object? argToValidate = null;
 
         foreach (var item in context.Arguments)
         {
-            // Dynamically resolve the validator type based on the type of the argument.
-            var argType = item.GetType();
-            var validatorType = typeof(IValidator<>).MakeGenericType(argType);
-            validator = context.HttpContext.RequestServices.GetService(validatorType);
+            var validatorType = typeof(IValidator<>).MakeGenericType(item!.GetType());
+            validator = context.HttpContext.RequestServices.GetService(validatorType) as IValidator;
 
             if (validator != null)
             {
@@ -26,19 +24,22 @@ public class ValidationFilter : IEndpointFilter
             }
         }
 
-        if (validator == null)
+        if (validator is null)
         {
             return new InvalidOperationException("No validator found for http context. Check handler arguments to have validator applied");
         }
 
-        ValidationResult validationResult = await validator.ValidateAsync(argToValidate);
+        var validationContext = new ValidationContext<object>(argToValidate!);
+
+        ValidationResult validationResult = await validator.ValidateAsync(validationContext);
 
         if (!validationResult.IsValid)
         {
-            var errors = validationResult.Errors
-                .Select(e => new { e.PropertyName, e.ErrorMessage })
-                .ToArray();
-            return Results.UnprocessableEntity(new { Errors = errors });
+            var res = new ValidationError()
+            {
+                Errors = validationResult.ToDictionary()
+            };
+            return Results.UnprocessableEntity(res);
         }
 
         return await next.Invoke(context);
