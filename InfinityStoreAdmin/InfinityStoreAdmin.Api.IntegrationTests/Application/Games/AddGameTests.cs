@@ -12,9 +12,9 @@ namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games
     [Collection("Sut Tests Collection")]
     public class AddGameTests
     {
-        private readonly SutFactory<Program> _sut;
+        private readonly SutFactory _sut;
 
-        public AddGameTests(SutFactory<Program> sut)
+        public AddGameTests(SutFactory sut)
         {
             _sut = sut;
         }

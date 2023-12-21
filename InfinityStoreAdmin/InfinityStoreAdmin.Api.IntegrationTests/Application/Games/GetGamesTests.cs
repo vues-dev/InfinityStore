@@ -13,12 +13,11 @@ namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 [Collection("Sut Tests Collection")]
 public class GetGamesTests 
 {
-    private readonly SutFactory<Program> _sut;
+    private readonly SutFactory _sut;
 
-    public GetGamesTests(SutFactory<Program> sut)
+    public GetGamesTests(SutFactory sut)
     {
         _sut = sut;
-        SeedDataIfNeeded().GetAwaiter().GetResult();
     }
 
     private async Task SeedDataIfNeeded()
