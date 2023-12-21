@@ -10,7 +10,8 @@ using Newtonsoft.Json;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
-public class GetGamesTests : IClassFixture<SutFactory<Program>>
+[Collection("Heavy Tests Collection")]
+public class GetGamesTests
 {
     private readonly SutFactory<Program> _sut;
 
@@ -22,98 +23,7 @@ public class GetGamesTests : IClassFixture<SutFactory<Program>>
 
     private async Task SeedDataIfNeeded()
     {
-        if (!_sut.DbContext.Games.Any())
-        {
-            // Seed the database with initial games
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "search substring game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 30
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "A game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 30
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "B game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 20
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "C game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 10
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "D game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 15
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "E game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 25
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "F game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 5
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "G game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 35
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "H game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 40
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "I game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 45
-            });
-
-            await _sut.DbContext.Games.InsertAsync(new()
-            {
-                Title = "J game",
-                Description = "desk",
-                ImagePath = "path",
-                Price = 50
-            });
-        }
+      
     }
 
     [Fact]

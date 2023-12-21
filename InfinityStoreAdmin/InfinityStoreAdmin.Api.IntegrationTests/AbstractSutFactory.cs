@@ -22,6 +22,8 @@ public abstract class AbstractSutFactory<TProgram, TContext> : WebApplicationFac
 
             services.AddDbContext<TContext>(options => NpgsqlDbContextOptionsBuilderExtensions.UseNpgsql(options, ConnectionString));
         });
+
+        PrepareTestData();
     }
 
     public TContext CreateDbContext()
@@ -32,4 +34,6 @@ public abstract class AbstractSutFactory<TProgram, TContext> : WebApplicationFac
 
         return (TContext)Activator.CreateInstance(typeof(TContext), options)!;
     }
+
+    protected abstract void PrepareTestData();
 }

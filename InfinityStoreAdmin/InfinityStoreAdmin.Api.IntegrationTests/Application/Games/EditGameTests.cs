@@ -10,7 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
-public class EditGameTests : IClassFixture<SutFactory<Program>>
+[Collection("Heavy Tests Collection")]
+public class EditGameTests
 {
     private readonly SutFactory<Program> _sut;
 
