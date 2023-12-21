@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http.Json;
 using InfinityStoreAdmin.Api.Application.Games.AddGame;
 using Vues.Net.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games
 {
@@ -39,11 +40,16 @@ namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games
             // Arrange
             var payload = new AddGameRequest(Title: "title", Description: "desk", ImagePath: "path", Price: 0);
             using var client = _sut.CreateClient();
+            var db = _sut.CreateDbContext();
+
             // Act
             var result = await client.PostAsJsonAsync($"{ApiPaths.PATH_GAMES}", payload);
             var content = await result.Content.ReadFromJsonAsync<Guid>();
+            var gameExistInDb = await db.Games.AnyAsync(x => x.Id == content);
+
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+            Assert.True(gameExistInDb);
         }
     }
 }
