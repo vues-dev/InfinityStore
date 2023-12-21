@@ -5,6 +5,7 @@ using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using Vues.Net;
+using Vues.Net.Models;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
@@ -26,9 +27,11 @@ public class EditGameTests : IClassFixture<SutFactory<Program>>
 
         // Act
         var result = await client.PutAsJsonAsync($"{ApiPaths.PATH_GAMES}/{Guid.NewGuid()}", payload);
-
+        var content = await result.Content.ReadFromJsonAsync<ValidationError>();
         // Assert
         Assert.Equal(HttpStatusCode.UnprocessableEntity, result.StatusCode);
+        Assert.True(content!.Errors.ContainsKey("Title"));
+        Assert.True(content.Errors.ContainsKey("ImagePath"));
     }
 
     [Fact]

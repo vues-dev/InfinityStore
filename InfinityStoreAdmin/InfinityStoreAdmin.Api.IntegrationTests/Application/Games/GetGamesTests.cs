@@ -6,6 +6,7 @@ using InfinityStoreAdmin.Api.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Vues.Net;
+using Vues.Net.Models;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
@@ -237,7 +238,10 @@ public class GetGamesTests : IClassFixture<SutFactory<Program>>
         var itemsPerPage = 0;
         // Act
         var result = await client.GetAsync($"{ApiPaths.PATH_GAMES}?CurrentPage={currentPage}&ItemsPerPage={itemsPerPage}");
+        var content = await result.Content.ReadFromJsonAsync<ValidationError>();
         // Assert
         Assert.Equal(HttpStatusCode.UnprocessableEntity, result.StatusCode);
+        Assert.True(content!.Errors.ContainsKey("CurrentPage"));
+        Assert.True(content.Errors.ContainsKey("ItemsPerPage"));
     }
 }

@@ -7,6 +7,11 @@ namespace InfinityStoreAdmin.Api.Infrastructure.Database
     {
         public DbSet<Game> Games { get; set; }
 
+        public DatabaseContext()
+        {
+            
+        }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.EnsureCreated();
