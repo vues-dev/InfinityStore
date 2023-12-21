@@ -1,10 +1,10 @@
-﻿using System;
-using InfinityStoreAdmin.Api.Infrastructure.Database;
+﻿using InfinityStoreAdmin.Api.Infrastructure.Database;
 using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Configurations;
 using InfinityStoreAdmin.Api.Shared.Entities;
-using Vues.Net;
-using Vues.Net.Models;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Models;
 
 namespace InfinityStoreAdmin.Api.Application.Games.AddGame;
 

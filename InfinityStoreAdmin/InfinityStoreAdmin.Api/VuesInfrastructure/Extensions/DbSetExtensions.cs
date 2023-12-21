@@ -1,9 +1,7 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Vues.Net;
+namespace InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
 
 public static class DbSetExtensions
 {

@@ -1,5 +1,4 @@
-﻿using System;
-using InfinityStoreAdmin.Api.Shared.Entities;
+﻿using InfinityStoreAdmin.Api.Shared.Entities;
 
 namespace InfinityStoreAdmin.Api.Application.Games.GetGames
 {

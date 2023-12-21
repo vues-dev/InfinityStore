@@ -1,9 +1,8 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
-using Vues.Net.Models;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Models;
 
-namespace Vues.Net.Filters;
+namespace InfinityStoreAdmin.Api.VuesInfrastructure.Filters;
 
 public class ValidationFilter : IEndpointFilter
 {

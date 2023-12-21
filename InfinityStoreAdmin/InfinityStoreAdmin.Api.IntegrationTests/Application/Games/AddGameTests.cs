@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http.Json;
 using InfinityStoreAdmin.Api.Application.Games.AddGame;
 using Microsoft.EntityFrameworkCore;
-using Vues.Net.Models;
 using Newtonsoft.Json;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games

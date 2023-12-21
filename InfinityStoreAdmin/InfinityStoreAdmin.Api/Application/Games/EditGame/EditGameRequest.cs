@@ -1,5 +1,4 @@
-﻿using System;
-namespace InfinityStoreAdmin.Api.Application.Games.AddGame
+﻿namespace InfinityStoreAdmin.Api.Application.Games.EditGame
 {
     public record EditGameRequest(string Title,
                                   string Description,

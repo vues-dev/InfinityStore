@@ -1,7 +1,7 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
 
-namespace Vues.Net;
+namespace InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
 
 public static class WebApplicationExtensions
 {

@@ -1,6 +1,5 @@
 ﻿using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.FrameworkCustomizing.OperationGroup;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InfinityStoreAdmin.Api.Features.AddGame

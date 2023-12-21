@@ -1,7 +1,6 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace InfinityStoreAdmin.Api.Application.Games.AddGame
+namespace InfinityStoreAdmin.Api.Application.Games.EditGame
 {
     public class EditGameRequestValidator : AbstractValidator<EditGameRequest>
     {

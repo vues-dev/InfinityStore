@@ -1,5 +1,4 @@
-﻿using System;
-namespace Vues.Net;
+﻿namespace InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
 
 public interface IEndpoint
 {

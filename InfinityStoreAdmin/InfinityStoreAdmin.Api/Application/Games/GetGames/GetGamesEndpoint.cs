@@ -1,13 +1,12 @@
-﻿using System;
-using InfinityStoreAdmin.Api.Application.Games.GetGames;
-using InfinityStoreAdmin.Api.Infrastructure.Database;
+﻿using InfinityStoreAdmin.Api.Infrastructure.Database;
 using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Configurations;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Models;
 using Microsoft.EntityFrameworkCore;
-using Vues.Net;
-using Vues.Net.Models;
 
-namespace InfinityStoreAdmin.Api.Application.Games.AddGame;
+namespace InfinityStoreAdmin.Api.Application.Games.GetGames;
 
 
 public class GetGamesEndpoint : IGroupedEndpoint

@@ -3,10 +3,10 @@ using System.Net.Http.Json;
 using InfinityStoreAdmin.Api.Application.Games.GetGames;
 using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Entities;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Vues.Net;
-using Vues.Net.Models;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 

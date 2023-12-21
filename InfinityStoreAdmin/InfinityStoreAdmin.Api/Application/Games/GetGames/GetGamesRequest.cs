@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace InfinityStoreAdmin.Api.Application.Games.AddGame
+﻿namespace InfinityStoreAdmin.Api.Application.Games.GetGames
 {
     public record GetGamesRequest(string? SearchString,
                                   bool? IsTitleUp,

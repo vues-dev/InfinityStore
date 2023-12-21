@@ -1,5 +1,4 @@
-﻿using System;
-namespace Vues.Net.Models
+﻿namespace InfinityStoreAdmin.Api.VuesInfrastructure.Models
 {
     public class ValidationError
     {

@@ -1,15 +1,8 @@
-using FluentValidation;
-using InfinityStoreAdmin.Api.Features.AddGame;
 using InfinityStoreAdmin.Api.Shared;
-using InfinityStoreAdmin.Api.Shared.Behaviors;
 using InfinityStoreAdmin.Api.Shared.Configurations;
-using InfinityStoreAdmin.Api.Shared.Extensions;
 using InfinityStoreAdmin.Api.Shared.FrameworkCustomizing.OperationGroup;
 using InfinityStoreAdmin.Api.Shared.Middleware;
-using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Vues.Net;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,4 +38,7 @@ app.RegisterEndpoints(new ApiPaths());
 
 app.Run();
 
-public partial class Program { }
+namespace InfinityStoreAdmin.Api
+{
+    public partial class Program { }
+}

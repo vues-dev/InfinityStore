@@ -1,5 +1,4 @@
-﻿using System;
-using Vues.Net;
+﻿using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
 
 namespace InfinityStoreAdmin.Api.Shared
 {

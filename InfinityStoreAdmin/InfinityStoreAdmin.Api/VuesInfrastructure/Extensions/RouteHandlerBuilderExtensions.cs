@@ -1,7 +1,6 @@
-﻿using System;
-using Vues.Net.Filters;
+﻿using InfinityStoreAdmin.Api.VuesInfrastructure.Filters;
 
-namespace Vues.Net;
+namespace InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
 
 public static class RouteHandlerBuilderExtensions
 {

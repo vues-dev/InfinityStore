@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using FluentValidation;
 using InfinityStoreAdmin.Api.Shared.Middleware.Exceptions;
 
 namespace InfinityStoreAdmin.Api.Shared.Middleware
