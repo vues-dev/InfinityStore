@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests;
@@ -23,7 +24,8 @@ public abstract class AbstractSutFactory<TProgram, TContext> : WebApplicationFac
             services.AddDbContext<TContext>(options => NpgsqlDbContextOptionsBuilderExtensions.UseNpgsql(options, ConnectionString));
         });
 
-        PrepareTestData();
+        var dbContext = CreateDbContext();
+        PrepareTestData(dbContext);
     }
 
     public TContext CreateDbContext()
@@ -35,5 +37,5 @@ public abstract class AbstractSutFactory<TProgram, TContext> : WebApplicationFac
         return (TContext)Activator.CreateInstance(typeof(TContext), options)!;
     }
 
-    protected abstract void PrepareTestData();
+    protected abstract void PrepareTestData(TContext ctx);
 }

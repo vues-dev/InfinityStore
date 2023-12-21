@@ -4,8 +4,8 @@ using InfinityStoreAdmin.Api.Shared.Entities;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests
 {
-    [CollectionDefinition("Heavy Tests Collection")]
-    public class HeavyTestCollection : ICollectionFixture<SutFactory<Program>>
+    [CollectionDefinition("Sut Tests Collection")]
+    public class SutTestCollection : ICollectionFixture<SutFactory<Program>>
     {
 
     }
@@ -13,12 +13,10 @@ namespace InfinityStoreAdmin.Api.IntegrationTests
     public class SutFactory<TProgram> : AbstractSutFactory<Program, DatabaseContext>
     {
         protected override string ConnectionString =>
-            "User ID=postgres;Password=1234;Host=localhost;Port=5432;Database=infinity_store_admin_db_test;";
+            "User ID=postgres;Password=12345-zx;Host=localhost;Port=5432;Database=infinity_store_admin_db_test;";
 
-        protected override void PrepareTestData()
+        protected override void PrepareTestData(DatabaseContext ctx)
         {
-            var ctx = CreateDbContext();
-
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
 

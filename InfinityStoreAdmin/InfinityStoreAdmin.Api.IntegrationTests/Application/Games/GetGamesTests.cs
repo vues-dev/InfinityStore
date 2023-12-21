@@ -10,8 +10,8 @@ using Newtonsoft.Json;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
-[Collection("Heavy Tests Collection")]
-public class GetGamesTests
+[Collection("Sut Tests Collection")]
+public class GetGamesTests 
 {
     private readonly SutFactory<Program> _sut;
 

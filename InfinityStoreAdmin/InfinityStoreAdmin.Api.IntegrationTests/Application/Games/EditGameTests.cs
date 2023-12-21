@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InfinityStoreAdmin.Api.IntegrationTests.Application.Games;
 
-[Collection("Heavy Tests Collection")]
+[Collection("Sut Tests Collection")]
 public class EditGameTests
 {
     private readonly SutFactory<Program> _sut;
