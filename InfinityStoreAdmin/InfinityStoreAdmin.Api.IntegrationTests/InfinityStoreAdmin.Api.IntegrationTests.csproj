@@ -28,10 +28,6 @@
     <None Remove="Application\Games\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Application\Games\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\InfinityStoreAdmin.Api\InfinityStoreAdmin.Api.csproj" />
   </ItemGroup>
 </Project>

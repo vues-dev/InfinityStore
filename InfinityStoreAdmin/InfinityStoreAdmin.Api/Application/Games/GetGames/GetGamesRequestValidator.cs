@@ -7,7 +7,7 @@ namespace InfinityStoreAdmin.Api.Application.Games.AddGame
     {
         public GetGamesRequestValidator()
         {
-            RuleFor(x => x.CurrentPage).GreaterThanOrEqualTo(0);
+            RuleFor(x => x.CurrentPage).GreaterThanOrEqualTo(1);
             RuleFor(x => x.ItemsPerPage).GreaterThanOrEqualTo(1);
         }
 

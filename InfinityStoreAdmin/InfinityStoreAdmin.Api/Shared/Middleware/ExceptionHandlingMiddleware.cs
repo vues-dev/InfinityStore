@@ -33,7 +33,6 @@ namespace InfinityStoreAdmin.Api.Shared.Middleware
             return ex switch
             {
                 BadRequestException => StatusCodes.Status400BadRequest,
-                ValidationException => StatusCodes.Status400BadRequest, // Handle Fluent Validation exceptions
                 UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
                 ForbiddenException => StatusCodes.Status403Forbidden,
                 NotFoundException => StatusCodes.Status404NotFound,

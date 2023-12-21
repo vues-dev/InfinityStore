@@ -21,9 +21,9 @@ namespace InfinityStoreAdmin.Api.Shared.Configurations
 
         private IServiceCollection AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetSection(Constants.DatabaseSection).Get<DatabaseConnectionString>();
+            var connectionString = configuration.GetConnectionString("InfinityStoreAdminDb");
 
-            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString.ToString()));
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
             return services;
         }

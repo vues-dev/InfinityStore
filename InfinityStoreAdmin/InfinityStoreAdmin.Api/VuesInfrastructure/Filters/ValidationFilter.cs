@@ -14,9 +14,9 @@ public class ValidationFilter : IEndpointFilter
 
         foreach (var item in context.Arguments)
         {
-            if(item is null)
+            if (item is null)
                 continue;
-                
+
             var validatorType = typeof(IValidator<>).MakeGenericType(item!.GetType());
             validator = context.HttpContext.RequestServices.GetService(validatorType) as IValidator;
 
