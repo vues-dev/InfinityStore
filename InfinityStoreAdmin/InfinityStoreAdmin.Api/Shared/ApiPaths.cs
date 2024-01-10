@@ -1,4 +1,6 @@
-﻿using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
+﻿using Asp.Versioning;
+using Asp.Versioning.Builder;
+using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
 
 namespace InfinityStoreAdmin.Api.Shared
 {

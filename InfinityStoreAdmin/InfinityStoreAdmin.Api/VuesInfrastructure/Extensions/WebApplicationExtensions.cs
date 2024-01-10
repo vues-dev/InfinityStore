@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
+using Asp.Versioning.Builder;
 using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
 
 namespace InfinityStoreAdmin.Api.VuesInfrastructure.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static void RegisterEndpoints(this WebApplication app, IApiPaths apiPaths)
+    public static void RegisterEndpoints(this WebApplication app, IApiPaths apiPaths, ApiVersionSet apiVersionSet)
     {
         foreach (Type mytype in Assembly.GetExecutingAssembly().GetTypes()
              .Where(mytype => mytype.GetInterfaces().Contains(typeof(IEndpoint))))
@@ -30,7 +31,7 @@ public static class WebApplicationExtensions
         {
             var endpoint = (IGroupedEndpoint?)Activator.CreateInstance(mytype);
 
-            endpoint?.DefineEndpoint(paths[endpoint.ApiGroup]);
+            endpoint?.DefineEndpoint(paths[endpoint.ApiGroup], apiVersionSet);
         }
     }
 }

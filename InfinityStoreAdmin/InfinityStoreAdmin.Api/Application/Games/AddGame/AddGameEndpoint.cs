@@ -1,4 +1,5 @@
-﻿using InfinityStoreAdmin.Api.Infrastructure.Database;
+﻿using Asp.Versioning.Builder;
+using InfinityStoreAdmin.Api.Infrastructure.Database;
 using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Configurations;
 using InfinityStoreAdmin.Api.Shared.Entities;
@@ -13,7 +14,7 @@ public class AddGameEndpoint : IGroupedEndpoint
 {
     public string ApiGroup => ApiPaths.PATH_GAMES;
 
-    public void DefineEndpoint(RouteGroupBuilder app)
+    public void DefineEndpoint(RouteGroupBuilder app, ApiVersionSet apiVersionSet)
     {
         app.MapPost("/", HandleAsync)
            .ValidateRequest()
@@ -24,7 +25,9 @@ public class AddGameEndpoint : IGroupedEndpoint
                Description = "",
                Summary = "Add game",
                Tags = SwaggerConfig.GAMES_TAG
-           });
+           })
+           .WithApiVersionSet(apiVersionSet)
+           .MapToApiVersion(1);
     }
 
     private async Task<IResult> HandleAsync(AddGameRequest request, DatabaseContext dbContext, CancellationToken cancellationToken)

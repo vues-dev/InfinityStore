@@ -1,4 +1,5 @@
-﻿using InfinityStoreAdmin.Api.Infrastructure.Database;
+﻿using Asp.Versioning.Builder;
+using InfinityStoreAdmin.Api.Infrastructure.Database;
 using InfinityStoreAdmin.Api.Shared;
 using InfinityStoreAdmin.Api.Shared.Configurations;
 using InfinityStoreAdmin.Api.VuesInfrastructure.Endpoints;
@@ -14,7 +15,7 @@ public class EditGameEndpoint : IGroupedEndpoint
 {
     public string ApiGroup => ApiPaths.PATH_GAMES;
 
-    public void DefineEndpoint(RouteGroupBuilder app)
+    public void DefineEndpoint(RouteGroupBuilder app, ApiVersionSet apiVersionSet)
     {
         app.MapPut("/{gameId}", HandleAsync)
            .ValidateRequest()
@@ -26,7 +27,9 @@ public class EditGameEndpoint : IGroupedEndpoint
                Description = "",
                Summary = "Edit game",
                Tags = SwaggerConfig.GAMES_TAG
-           });
+           })
+           .WithApiVersionSet(apiVersionSet)
+           .MapToApiVersion(2);
     }
 
     private async Task<IResult> HandleAsync([FromRoute] Guid gameId, EditGameRequest request, DatabaseContext dbContext, CancellationToken cancellationToken)
